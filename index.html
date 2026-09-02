@@ -56,14 +56,14 @@
 <section class="search-section" id="search">
     <h2>Find Your Favourite Music 🎵</h2>
     
-    <div class="search-box">
+    <form class="search-box" id="search-form">
         <input 
             type="text" 
             id="search-input" 
             placeholder="Search for a song or artist..."
         >
-        <button id="search-btn">🔍 Search</button>
-    </div>
+        <button id="search-btn" type="submit">🔍 Search</button>
+    </form>
 
     <div id="search-results" class="music-grid"></div>
 </section>
@@ -248,7 +248,7 @@
         <p>© 2026 MusicWave. Built for music lovers 🎵</p>
     </footer>
 
-    <script type="module" src="script.js"></script>
+    <script type="module" src="script.js?v=3"></script>
 
     <script type="module">
     import { auth, db } from "./firebase.js";

@@ -45,6 +45,7 @@ const volumeSlider = document.querySelector("#volume-slider");
 
 const searchInput = document.querySelector("#search-input");
 const searchButton = document.querySelector("#search-btn");
+const searchForm = document.querySelector("#search-form");
 const searchResults = document.querySelector("#search-results");
 
 
@@ -471,22 +472,17 @@ searchResults.addEventListener("click", (event) => {
 
 });
 
-searchButton.addEventListener("click", searchMusic);
+searchForm.addEventListener("submit", (event) => {
+
+    event.preventDefault();
+    searchMusic();
+
+});
 
 
 // ==========================================
 // SEARCH WITH ENTER
 // ==========================================
-
-searchInput.addEventListener("keydown", (event) => {
-
-    if (event.key === "Enter") {
-
-        searchMusic();
-    }
-
-});
-
 
 // ==========================================
 // FAVOURITES - FIRESTORE
