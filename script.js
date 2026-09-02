@@ -66,21 +66,21 @@ const songs = [
         title: "Back 2 U",
         artist: "Seyi Vibez",
         file: "./music/Seyi-Vibez-BACK-2-U.mp3",
-        cover: "./images/cover1.jpg"
+        cover: "./images/cover1.png"
     },
 
     {
         title: "Diamond or Gold",
         artist: "Tml Vibez",
         file: "./music/Tml-Vibez-Diamond-or-Gold.mp3",
-        cover: "./images/cover2.jpg"
+        cover: "./images/cover2.png"
     },
 
     {
         title: "Dantata",
         artist: "Zinoleesky",
         file: "./music/Zinoleesky-Dantata.mp3",
-        cover: "./images/cover3.jpg"
+        cover: "./images/cover3.png"
     }
 ];
 
@@ -820,7 +820,7 @@ function displayPlaylist() {
             <div class="music-card">
 
                 <img
-                    src="${song.cover || "./images/cover1.jpg"}"
+                    src="${song.cover || "./images/cover1.png"}"
 
                     alt="${song.title}"
 
@@ -902,7 +902,7 @@ playlistList.addEventListener("click", (event) => {
             song.artist;
 
         playerCover.src =
-            song.cover || "./images/cover1.jpg";
+            song.cover || "./images/cover1.png";
 
 
         audio.play();
