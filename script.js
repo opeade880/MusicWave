@@ -327,7 +327,7 @@ audio.addEventListener("ended", () => {
 async function searchMusicApi(searchTerm) {
 
     const response = await fetch(
-        `https://itunes.apple.com/search?term=${encodeURIComponent(
+        `https://itunes.apple.com/us/search?term=${encodeURIComponent(
             searchTerm
         )}&media=music&entity=song&limit=12`
     );
