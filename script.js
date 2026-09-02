@@ -443,6 +443,34 @@ async function searchMusic() {
 // SEARCH BUTTON
 // ==========================================
 
+searchResults.addEventListener("click", (event) => {
+
+    if (!event.target.classList.contains("preview-btn")) {
+        return;
+    }
+
+    const previewUrl = event.target.dataset.preview;
+
+    if (!previewUrl) {
+        alert("No preview is available for this song.");
+        return;
+    }
+
+    audio.src = previewUrl;
+    isApiPreview = true;
+
+    playerTitle.textContent = event.target.dataset.title;
+    playerArtist.textContent = event.target.dataset.artist;
+    playerCover.src = event.target.dataset.cover;
+
+    audio.play().catch((error) => {
+        console.error("Preview playback error:", error);
+    });
+
+    playPauseButton.textContent = "⏸";
+
+});
+
 searchButton.addEventListener("click", searchMusic);
 
 
