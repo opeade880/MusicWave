@@ -324,44 +324,19 @@ audio.addEventListener("ended", () => {
 // SEARCH MUSIC API
 // ==========================================
 
-function searchMusicApi(searchTerm) {
+async function searchMusicApi(searchTerm) {
 
-    return new Promise((resolve, reject) => {
+    const response = await fetch(
+        `https://itunes.apple.com/search?term=${encodeURIComponent(
+            searchTerm
+        )}&media=music&entity=song&limit=12`
+    );
 
-        const callbackName =
-            `musicSearchCallback_${Date.now()}_${Math.random()
-                .toString(36)
-                .slice(2)}`;
-        const script = document.createElement("script");
-        const timeout = setTimeout(() => {
-            cleanup();
-            reject(new Error("Music search timed out."));
-        }, 10000);
+    if (!response.ok) {
+        throw new Error("Music search request failed.");
+    }
 
-        function cleanup() {
-            clearTimeout(timeout);
-            delete window[callbackName];
-            script.remove();
-        }
-
-        window[callbackName] = (data) => {
-            cleanup();
-            resolve(data);
-        };
-
-        script.onerror = () => {
-            cleanup();
-            reject(new Error("Music search request failed."));
-        };
-
-        script.src =
-            `https://itunes.apple.com/search?term=${encodeURIComponent(
-                searchTerm
-            )}&media=music&entity=song&limit=12&callback=${callbackName}`;
-
-        document.head.appendChild(script);
-
-    });
+    return response.json();
 }
 
 async function searchMusic() {
