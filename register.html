@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MusicWave - Create Account</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <div class="auth-box">
+
+            <h1>🎵 MusicWave</h1>
+
+            <h2>Create Account</h2>
+
+            <p>Join MusicWave and start enjoying your music.</p>
+
+            <form id="register-form">
+
+                <input
+                    type="email"
+                    id="register-email"
+                    placeholder="Email address"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="register-password"
+                    placeholder="Password"
+                    minlength="6"
+                    required
+                >
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <p id="register-message"></p>
+
+            <p>
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Firebase -->
+<script type="module">
+
+    import { auth } from "./firebase.js";
+
+    import {
+        createUserWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
+    const registerForm =
+        document.querySelector("#register-form");
+
+    const message =
+        document.querySelector("#register-message");
+
+
+    registerForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+
+        const email =
+            document.querySelector("#register-email").value.trim();
+
+        const password =
+            document.querySelector("#register-password").value;
+
+
+        message.textContent = "Creating account...";
+
+
+        try {
+
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            message.textContent =
+                "Account created successfully! 🎉";
+
+
+            registerForm.reset();
+
+
+            // Send user to MusicWave
+            setTimeout(() => {
+
+                window.location.href = "index.html";
+
+            }, 1500);
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            if (error.code === "auth/email-already-in-use") {
+
+                message.textContent =
+                    "This email already has an account.";
+
+            } else if (error.code === "auth/invalid-email") {
+
+                message.textContent =
+                    "Please enter a valid email address.";
+
+            } else if (error.code === "auth/weak-password") {
+
+                message.textContent =
+                    "Password must be at least 6 characters.";
+
+            } else {
+
+                message.textContent =
+                    "Could not create account. Please try again.";
+
+            }
+
+        }
+
+    });
+
+</script>
+</body>
+</html>
